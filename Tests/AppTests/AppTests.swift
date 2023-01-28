@@ -3,22 +3,20 @@ import XCTVapor
 
 final class AppTests: XCTestCase {
     
-    func testHelloWorld() throws {
-        let app = Application(.testing)
-        defer { app.shutdown() }
-        try configure(app)
-        
-        try app.test(.GET, "hello", afterResponse: { res in
-            XCTAssertEqual(res.status, .ok)
-            XCTAssertEqual(res.body.string, "Hello, world!")
-        })
+    var app: Application!
+    
+    override func setUp() {
+        super.setUp()
+        app = Application(.testing)
+        try! configure(app)
     }
     
-    func testIP2Geo() throws {
-        let app = Application(.testing)
-        defer { app.shutdown() }
-        try configure(app)
-        
+    override func tearDown() {
+        app.shutdown()
+        super.tearDown()
+    }
+    
+    func testIP2GeoForIndiaIPAddress() throws {
         try app.test(.GET, "json/172.225.137.215", afterResponse: { response in
             let receivedGeoInfo = try response.content.decode(GeoInfo.self)
             XCTAssertEqual(receivedGeoInfo.status, true)
@@ -30,6 +28,17 @@ final class AppTests: XCTestCase {
             XCTAssertEqual(receivedGeoInfo.currency, "INR")
         })
     }
+    
+    func testIP2GeoForCanadaIPAddress() throws {
+        try app.test(.GET, "json/24.48.0.1 ", afterResponse: { response in
+            let receivedGeoInfo = try response.content.decode(GeoInfo.self)
+            XCTAssertEqual(receivedGeoInfo.status, true)
+            XCTAssertEqual(receivedGeoInfo.ip, "24.48.0.1")
+            XCTAssertEqual(receivedGeoInfo.country, "Canada")
+            XCTAssertEqual(receivedGeoInfo.countryCode, "CA")
+            XCTAssertEqual(receivedGeoInfo.regionName, "Quebec")
+            XCTAssertEqual(receivedGeoInfo.city, "Montreal")
+            XCTAssertEqual(receivedGeoInfo.currency, "CAD")
+        })
+    }
 }
-
-//GeoInfo(status: true, ip: "172.225.137.215", country: "India", countryCode: "IN", regionName: "Tamil Nadu", city: "Chennai", currency: "INR")
