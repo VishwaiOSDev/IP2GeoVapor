@@ -19,6 +19,7 @@ struct IPApiInfo: Content {
 }
 
 struct GeoInfo: Content {
+    
     let status: Bool
     let ip: String
     let country: String
