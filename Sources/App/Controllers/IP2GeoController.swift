@@ -40,15 +40,28 @@ fileprivate extension IP2GeoController {
     
     /// This function is used to get the IP-API response for the given IP address.
     /// - Parameters
-    ///     - req: Request, Vapor's Request object
+    ///    - req: Request, Vapor's Request object
     ///    - ip: String, IP address for which the IP-API response is needed
     ///    - responseType: ResponseType, format of the response (json, xml, csv or newline)
     /// - Returns: IPApiInfo, IP-API response for the given IP address
     /// - Throws: Error when there is an issue in getting the response from the IP-API service
     func getIpApiResponse(_ req: Request, for ip: String, responseType: ResponseType = .json) async throws -> IPApiInfo {
-        let fields = "status,currency,country,countryCode,regionName,city,query"
-        let ipApiURL =  URI(string: "http://ip-api.com/\(responseType.rawValue)/\(ip)?fields=\(fields)")
+        let ipApiURL = getURI(for: ip, responseType)
         let response = try await req.client.get(ipApiURL)
         return try response.content.decode(IPApiInfo.self)
+    }
+    
+    /// This function returns a URI object that can be used to make a request to the IP-API service.
+    /// - Parameters:
+    ///     - ip: The IP address to be queried.
+    ///     - responseType: The type of response to be returned by the IP-API service.
+    /// - Returns: A `URI` object that can be used to make a request to the IP-API service with the specified IP address and response type.
+    func getURI(for ip: String, _ responseType: ResponseType) -> URI {
+        var baseURL = URI()
+        baseURL.scheme = "http"
+        baseURL.path = "/\(responseType.rawValue)/\(ip)"
+        baseURL.host = "ip-api.com"
+        let parameters = ["fields": "status,currency,country,countryCode,regionName,city,query"]
+        return baseURL.appendingQueryParameters(parameters)
     }
 }
