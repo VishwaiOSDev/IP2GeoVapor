@@ -41,4 +41,10 @@ final class AppTests: XCTestCase {
             XCTAssertEqual(receivedGeoInfo.currency, "CAD")
         })
     }
+    
+    func testIP2GeoForInvalidIP() throws {
+        try app.test(.GET, "json/24.48.0 ", afterResponse: { response in
+            XCTAssertEqual(response.status, .badRequest)
+        })
+    }
 }
