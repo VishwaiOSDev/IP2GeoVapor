@@ -59,8 +59,6 @@ In case of any error, the package throws Abort error with status `400 Bad Reques
 
 ## Author
 
-IP2GeoVapor was made by:
-
 <a href="https://github.com/VishwaiOSDev" title="VishwaiOSDev">
   <img src="https://avatars.githubusercontent.com/u/71421776?v=4" style="border-radius: 12%;" width="50;" alt="fw_qaq"/>
 </a>
