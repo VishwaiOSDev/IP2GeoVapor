@@ -1,18 +1,13 @@
 pipeline {
-    agent {
-        docker {
-            image 'vapor/swift:5.6.0'
-        }
-    }
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                sh 'swift build'
+                sh 'docker build . --tag ip2geo-vapor'
             }
         }
-        stage('Test') {
+        stage('Deploy') {
             steps {
-                sh 'swift test'
+                sh 'docker start ip2geo-vapor'
             }
         }
     }
