@@ -2,7 +2,7 @@
 
 # IP2GeoVapor
 
-IP2Geo is a Vapor package that allows you to easily fetch geographical information of an IP address. The IP-API service uses HTTP by default, but this package uses HTTPS to ensure a secure connection.
+IP2Geo is a Vapor API that allows you to easily fetch geographical information of an IP address. The IP-API service uses HTTP by default, but this package uses HTTPS to ensure a secure connection.
 
 # Usage
 
@@ -32,8 +32,11 @@ The response will be a JSON object containing the following information:
 - `city`: String, the name of the city of the IP address.
 - `query`: String, the IP address used in the request.
 
+> **Note**\
+> This endpoint is limited to 45 requests / minute
+
 > **Warning**\
-> If the IP address is not valid or the request to the IP-API service fails, the server will return a `400 Bad Request` response.
+> If the IP address is not valid, the server will return a `400 Bad Request` response.
 
 # Customization
 
@@ -43,8 +46,9 @@ The response format can be changed by specifying the `responseType` parameter in
 
 ## Work In Progress
 
-- Adding support for IPv6 addresses
-- Adding option to specify the fields to be returned in the IP-API response
+- [] Adding support for csv, xml, newline
+- [] Adding support for IPv6 addresses
+- [] Adding option to specify the fields to be returned in the IP-API response
 
 # Error Handling
 
