@@ -49,6 +49,7 @@ The response format can be changed by specifying the `responseType` parameter in
 
 ## Work In Progress
 
+- [ ] Adding load balancer
 - [ ] Adding support for csv, xml, newline
 - [ ] Adding support for IPv6 addresses
 - [ ] Adding option to specify the fields to be returned in the IP-API response
