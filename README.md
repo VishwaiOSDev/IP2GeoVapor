@@ -2,6 +2,9 @@
 
 # IP2GeoVapor
 
+[![Build Status](https://jenkins.prod.loadify.app/buildStatus/icon?job=IP2GeoVapor)](https://jenkins.prod.loadify.app/job/IP2GeoVapor/)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswiftcsv%2FSwiftCSV%2Fbadge%3Ftype%3Dplatforms)]()
+
 IP2Geo is a Vapor API that allows you to easily fetch geographical information of an IP address. The IP-API service uses HTTP by default, but this package uses HTTPS to ensure a secure connection.
 
 # Usage
