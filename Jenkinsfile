@@ -1,20 +1,16 @@
 pipeline {
-    agent any
-    stages {
-        
-        stage('Check Swift Version') {
-            steps {
-                sh 'swift --version'
-            }    
+    agent {
+        docker {
+            image 'vapor/swift:5.3'
         }
-       
-        stage('Build Package') {
+    }
+    stages {
+        stage('Build') {
             steps {
                 sh 'swift build'
-            }    
+            }
         }
-    
-        stage('Run Tests') {
+        stage('Test') {
             steps {
                 sh 'swift test'
             }
