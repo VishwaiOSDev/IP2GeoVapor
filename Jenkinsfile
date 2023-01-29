@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'vapor/swift:latest'
+            image 'vapor/swift:5.6.0'
         }
     }
     stages {
