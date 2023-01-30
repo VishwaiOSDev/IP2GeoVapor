@@ -32,15 +32,6 @@ final class IP2GeoController: RouteCollection {
             let geoInfo = GeoInfo(from: ipApiInfo)
             return geoInfo
         }
-        
-        /// Route for retrieving information about the client's IP address in JSON format.
-        routes.get("json", "ipaddress") { req -> GeoInfo in
-            // Check if the passed IP address is a valid IPv4 address
-            guard let clientIP = req.remoteAddress?.ipAddress, clientIP.isIPv4() else { throw Abort(.badRequest) }
-            let ipApiInfo = try await self.getIpApiResponse(req, for: clientIP)
-            let geoInfo = GeoInfo(from: ipApiInfo)
-            return geoInfo
-        }
     }
 }
 
