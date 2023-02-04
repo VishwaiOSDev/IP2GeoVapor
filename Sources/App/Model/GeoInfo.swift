@@ -38,3 +38,8 @@ struct GeoInfo: Content {
         self.currency = ipApiInfo.currency
     }
 }
+
+struct IPAddress: Content {
+    let status: Bool
+    let ip: String
+}
