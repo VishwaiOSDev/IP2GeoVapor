@@ -38,6 +38,11 @@ final class IP2GeoController: RouteCollection {
             guard let clientIP = req.remoteAddress?.ipAddress else { throw Abort(.badRequest) }
             return IPAddress(status: true, ip: clientIP)
         }
+        
+        /// This is a GET route that returns **It works!**
+        routes.get("it", "works") { req -> String in
+            return "It Works!"
+        }
     }
 }
 
