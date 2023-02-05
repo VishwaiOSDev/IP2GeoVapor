@@ -14,7 +14,7 @@ RUN swift build -c release
 RUN swift test
 
 # Expose the default Vapor port
-EXPOSE 8080
+EXPOSE 3001
 
 # Set the command to run when the container starts
 CMD [".build/release/Run", "serve", "--env", "production"]
