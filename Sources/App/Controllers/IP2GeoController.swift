@@ -34,7 +34,7 @@ final class IP2GeoController: RouteCollection {
         }
         
         /// This is a GET route that returns the client's IP Address in JSON
-        routes.get("mpip") { req -> IPAddress in
+        routes.get("myip") { req -> IPAddress in
             guard let clientIP = req.remoteAddress?.ipAddress else { throw Abort(.badRequest) }
             return IPAddress(status: true, ip: clientIP)
         }
