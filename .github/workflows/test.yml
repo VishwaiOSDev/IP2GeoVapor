@@ -14,6 +14,8 @@ jobs:
         key: ${{ runner.os }}-swift-${{ hashFiles('Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-swift-
+        timeout: 7200
+        timeout-with: continue
     - name: Build
       run: swift build
     - name: Test
