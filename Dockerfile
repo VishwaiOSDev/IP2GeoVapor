@@ -7,12 +7,6 @@ WORKDIR /app
 # Copy the contents of the local directory to the container
 COPY . .
 
-# Build the Swift Vapor API
-RUN swift build -c release
-
-# Run the unit tests
-RUN swift test
-
 # Expose the default Vapor port
 EXPOSE 3001
 
