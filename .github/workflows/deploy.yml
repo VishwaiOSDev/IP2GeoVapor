@@ -25,8 +25,11 @@ jobs:
         username: ${{ env.USERNAME }}
         key: ${{ env.SSHKEY }}
         port: ${{ env.PORT }}
-        script: whoami
-          
+        script: |
+          # Stop the running Docker container and remove it
+          docker stop ip2geovapor || true
+          docker rm ip2geovapor || true
+
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -35,10 +38,6 @@ jobs:
         docker build -t ip2geovapor .
 
     - name: Deploy to production
-      script: |
-        whoami
-        ls -al
-        docker stop ip2geovapor || true
-        docker rm ip2geovapor || true
-        docker run -d --name ip2geovapor -p 3001:3001
-        EOF
+      run: |
+        # Run the Docker container in the background
+        docker run -d --name ip2geovapor -p 3001:3001 -e ENVIRONMENT={{ env.ENVIRONMENT }} ip2geovapor
