@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: multiple command
+    - name: Deploy Vapor API
       uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ env.HOST }}
@@ -26,18 +26,7 @@ jobs:
         key: ${{ env.SSHKEY }}
         port: ${{ env.PORT }}
         script: |
-          whoami
-          
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Install Swift
-      uses: swift-actions/setup-swift@v1
-      with:
-        swift-version: "5.7"
-
-    - name: Build Vapor API
-      run: swift build --configuration release
-
-    - name: Deploy to production
-      run: nohup .build/release/Run serve --env ${{env.ENVIRONMENT}} --port 3001 --hostname 127.0.0.1 &
+          cd /root/swift/IP2GeoVapor
+          git pull
+          swift build --configuration release
+          nohup .build/release/Run serve --env ${{env.ENVIRONMENT}} --port 3001 --hostname 127.0.0.1 &
