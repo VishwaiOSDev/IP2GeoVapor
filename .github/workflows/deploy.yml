@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: SSH Login
+    - name: multiple command
       uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ env.HOST }}
@@ -26,18 +26,18 @@ jobs:
         key: ${{ env.SSHKEY }}
         port: ${{ env.PORT }}
         script: |
-          # Stop the running Docker container and remove it
-          docker stop ip2geovapor || true
-          docker rm ip2geovapor || true
-
+          whoami
+          
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build Docker Image
-      run: |
-        docker build -t ip2geovapor .
+    - name: Install Swift
+      uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: "5.7"
+
+    - name: Build Vapor API
+      run: swift build --configuration release
 
     - name: Deploy to production
-      run: |
-        # Run the Docker container in the background
-        docker run -d --name ip2geovapor -p 3001:3001 -e ENVIRONMENT={{ env.ENVIRONMENT }} ip2geovapor
+      run: nohup .build/release/Run serve --env ${{env.ENVIRONMENT}} --port 3001 --hostname 127.0.0.1 &
