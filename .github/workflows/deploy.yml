@@ -18,16 +18,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: multiple command
+    - name: executing remote ssh commands using ssh key
       uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ env.HOST }}
         username: ${{ env.USERNAME }}
         key: ${{ env.SSHKEY }}
         port: ${{ env.PORT }}
-        script: |
-          whoami
-          ls -al
+        script: whoami
           
     - name: Checkout code
       uses: actions/checkout@v2
