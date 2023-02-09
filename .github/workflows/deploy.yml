@@ -27,6 +27,7 @@ jobs:
         port: ${{ env.PORT }}
         script: |
           cd /root/swift/IP2GeoVapor
+          ls
           git pull
           swift build --configuration release
           nohup .build/release/Run serve --env ${{env.ENVIRONMENT}} --port 3001 --hostname 127.0.0.1 &
