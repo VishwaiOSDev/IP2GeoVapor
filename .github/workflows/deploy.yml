@@ -18,6 +18,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: multiple command
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ env.HOST }}
+        username: ${{ env.USERNAME }}
+        key: ${{ env.SSHKEY }}
+        port: ${{ env.PORT }}
+        script: |
+          whoami
+          ls -al
+          
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -26,12 +37,16 @@ jobs:
       with:
         swift-version: "5.7"
 
+    - name: Cache Swift Package Dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.swiftpm
+        key: ${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-swiftpm
+        restore-keys: |
+          ${{ runner.os }}-swift-${{ env.SWIFT_VERSION }}-swiftpm
+
     - name: Build Vapor API
       run: swift build --configuration release
 
     - name: Deploy to production
-      run: |
-        mkdir -p /deploy
-        cp -r .build/release/RepositoryName /deploy/
-        scp -P ${{ env.PORT }} -i ${{ env.SSHKEY }} -r /deploy ${{ env.USERNAME }}@${{ env.HOST }}:/var/www/${{ env.REPOSITORY_NAME }}
-        ssh -p ${{ env.PORT }} -i ${{ env.SSHKEY }} ${{ env.USERNAME }}@${{ env.HOST }} "systemctl restart vapor-${{ env.REPOSITORY_NAME }}"
+      run: .build/release/Run serve --env ${{env.ENVIRONMENT}} --port 3001 --hostname 127.0.0.1
