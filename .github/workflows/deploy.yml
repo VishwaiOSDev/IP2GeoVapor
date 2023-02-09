@@ -21,10 +21,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Swift
-      uses: actions/setup-swift@v2
+    - name: Install Swift
+      uses: swift-actions/setup-swift@v1
       with:
-        swift-version: 5.7
+        swift-version: "5.7"
 
     - name: Build Vapor API
       run: swift build --configuration release
