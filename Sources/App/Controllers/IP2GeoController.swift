@@ -35,7 +35,8 @@ final class IP2GeoController: RouteCollection {
         
         /// This is a GET route that returns the client's IP Address in JSON
         routes.get("myip") { req -> IPAddress in
-            let clientIP = req.headers.first(name: "x-forwarded-for") ?? req.remoteAddress!.ipAddress!
+            let header = "x-forwarded-for"
+            let clientIP = req.headers.first(name: header) ?? req.remoteAddress!.ipAddress!
             return IPAddress(status: true, ip: clientIP)
         }
     }
