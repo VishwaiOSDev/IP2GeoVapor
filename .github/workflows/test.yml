@@ -10,9 +10,9 @@ jobs:
       uses: sersoft-gmbh/swifty-linux-action@v2.1.1
     - uses: actions/checkout@v3
     - name: Cache
-        uses: actions/cache@v3
-        with:
-          path: |
+      uses: actions/cache@v3
+      with:
+        path: |
             .build/artifacts
             .build/checkouts
             .build/repositories
