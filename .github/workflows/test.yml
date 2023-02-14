@@ -6,10 +6,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Swift on Linux
-      uses: sersoft-gmbh/swifty-linux-action@v2.1.1
+    - name: Install Swift
+      uses: sersoft-gmbh/swifty-linux-action@v2
       with:
-        release-version: 5.6
+        branch-name: swift-5.7-branch
+        version-tag: swift-5.7-DEVELOPMENT-SNAPSHOT-2022-06-13-a
     - name: Cache
       uses: actions/cache@v3
       with:
