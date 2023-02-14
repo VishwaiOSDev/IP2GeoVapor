@@ -4,18 +4,20 @@ on:
     branches: [ "main" ]
 jobs:
   build:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     steps:
+    - name: Install Swift on Linux
+      uses: sersoft-gmbh/swifty-linux-action@v2.1.1
     - uses: actions/checkout@v3
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/Library/Caches/SwiftPM
-        key: ${{ runner.os }}-swift-${{ hashFiles('Package.resolved') }}
-        restore-keys: |
-          ${{ runner.os }}-swift-
-        timeout: 7200
-        timeout-with: continue
+    - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .build/artifacts
+            .build/checkouts
+            .build/repositories
+            .build/workspace-state.json
+          key: test-spm-${{ runner.os }}-${{ hashFiles('Package.swift', 'Package.resolved') }}
     - name: Build
       run: swift build
     - name: Test
