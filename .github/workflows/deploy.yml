@@ -14,7 +14,6 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
     - name: Deploy
       uses: appleboy/ssh-action@v0.1.7
@@ -26,9 +25,10 @@ jobs:
         script: |
           whoami
           cd /root/swift/IP2GeoVapor
+          git reset --hard
           git pull --force
           docker stop vaporAPI || true
           docker rm vaporAPI || true
           docker build . -t ip2geo-vapor
           docker run -d --name vaporAPI -p 3001:3001 ip2geo-vapor
-          docker image prune 
+          docker image prune -a --force
