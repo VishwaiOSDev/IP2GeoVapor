@@ -7,10 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Swift
-      uses: sersoft-gmbh/swifty-linux-action@v2
+      uses: slashmo/install-swift@v0.1.0
       with:
-        branch-name: swift-5.7-branch
-        version-tag: swift-5.7-DEVELOPMENT-SNAPSHOT-2022-06-13-a
+        version: 5.6
     - name: Cache
       uses: actions/cache@v3
       with:
