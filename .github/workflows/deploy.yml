@@ -26,7 +26,7 @@ jobs:
         script: |
           whoami
           cd /root/swift/IP2GeoVapor
-          git pull
+          git pull --force
           docker stop vaporAPI || true
           docker rm vaporAPI || true
           docker build . -t ip2geo-vapor
