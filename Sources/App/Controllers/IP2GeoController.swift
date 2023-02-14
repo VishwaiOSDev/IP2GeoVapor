@@ -39,6 +39,19 @@ final class IP2GeoController: RouteCollection {
             let clientIP = req.headers.first(name: header) ?? req.remoteAddress!.ipAddress!
             return IPAddress(status: true, ip: clientIP)
         }
+        
+        /// This is a GET route that returns the instruction how to use self-hosted API
+        routes.get { req -> String in
+            let response =
+                """
+                IPLOOKUP \n
+                To see your IP Address: https://iplookup.madrasvalley.com/myip
+                To get location for IP Address: https://iplookup.madrasvalley.com/json/<ip-address-goes-here> \n
+                Example: https://iplookup.madrasvalley.com/json/100.42.23.255 \n
+                Note: If `iplookup.madrasvalley.com` is not working try with `iplookup.loadify.app`
+                """
+            return response
+        }
     }
 }
 
