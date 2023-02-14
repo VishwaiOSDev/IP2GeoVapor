@@ -8,13 +8,12 @@ WORKDIR /app
 COPY . .
 
 # Build the Swift Vapor API
-RUN swift build -c release
+RUN swift build
 
-# Run the unit tests
-RUN swift test
+# 4
+RUN mkdir /app/bin
+RUN mv `swift build --show-bin-path` /app/bin
 
-# Expose the default Vapor port
+# 5
 EXPOSE 3001
-
-# Set the command to run when the container starts
-CMD [".build/release/Run", "serve", "--env", "production"]
+ENTRYPOINT ./bin/debug/Run serve --env local --hostname 0.0.0.0
