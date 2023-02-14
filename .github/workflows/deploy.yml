@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  HOST: ${{ secrets.HOST }}
+  USERNAME: ${{ secrets.USERNAME }}
+  SSHKEY: ${{ secrets.SSHKEY }}
+  PORT: ${{ secrets.PORT }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH Login
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ env.HOST }}
+        username: ${{ env.USERNAME }}
+        key: ${{ env.SSHKEY }}
+        port: ${{ env.PORT }}
+        script: |
+          whoami
+          
+    - uses: actions/checkout@v3
+
+    - name: Stop existing container
+      run: docker stop vaporAPI
+
+    - name: Remove existing container
+      run: docker rm vaporAPI
+
+    - name: Build docker container
+      run: docker build . -t ip2geo-vapor
+
+    - name: Run docker container
+      run: docker run --name vaporAPI -p 3001:3001 ip2geo-vapor
+
+    - name: Prune old container
+      run: docker image prune 
