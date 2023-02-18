@@ -29,8 +29,10 @@ jobs:
           cd /root/swift/IP2GeoVapor
           git reset --hard
           git pull --force
-          docker stop vaporAPI || true
-          docker rm vaporAPI || true
           docker build . -t ip2geo-vapor
-          docker run -d --name vaporAPI -p 3001:3001 ip2geo-vapor
+          docker stop $(docker ps --filter "name=vaporAPI" --format "{{.ID}}") || true
+          docker rm $(docker ps -a --filter "name=vaporAPI" --format "{{.ID}}") || true
+          docker run -d --name vaporAPI_new -p 3001:3001 ip2geo-vapor
+          sleep 10 # wait for the new container to start
+          docker ps -f name=vaporAPI_new -q | xargs -I {} docker rename {} vaporAPI
           docker image prune -a --force
