@@ -6,7 +6,9 @@
 
 IP2Geo is a Vapor API that allows you to easily fetch geographical information of an IP address. The IP-API service uses HTTP by default, but this package uses HTTPS to ensure a secure connection.
 
-# Usage
+# Endpoints
+
+## 1) /json/:ipAddress
 
 To get the geographical information of an IP address, you can make a GET request to `/json/:ipAddress` where **:ipAddress** is the IP address for which you want to get the information. The response will be in the form of `JSON`.
 
@@ -40,6 +42,17 @@ The response will be a JSON object containing the following information:
 > **Warning**\
 > If the IP address is not valid, the server will return a `400 Bad Request` response.
 
+## 2) /myip
+
+If you make a GET request to /myip, the server will return your IP address as a string. For example, if your IP address is 8.8.8.8, the response will be:
+
+```json
+{
+  "status":true,
+  "ip":"183.82.206.135"
+}
+```
+
 # Customization
 
 ## Response Format
@@ -56,6 +69,15 @@ The response format can be changed by specifying the `responseType` parameter in
 # Error Handling
 
 In case of any error, the package throws Abort error with status `400 Bad Request`
+
+# Self Hosted
+
+There is already a self-hosted version of IP2GeoVapor running on a VPS at `iplookup.madrasvalley.com`.
+
+1. Open a web browser and go to https://iplookup.madrasvalley.com.
+2. To get your own IP address, navigate to the `/myip` endpoint. You can do this by typing `iplookup.madrasvalley.com/myip` in the address bar and hitting enter.
+3. To get geographical information about a specific IP address, navigate to the `/json/<ip-address>` endpoint, where `<ip-address>` is the IP address you want to look up. For example, if you want to look up information about the IP address 8.8.8.8, you can type `iplookup.madrasvalley.com/json/8.8.8.8` in the address bar and hit enter.
+4. The server will respond with a JSON object that contains the geographical information about the specified IP address.
 
 ## Author
 
