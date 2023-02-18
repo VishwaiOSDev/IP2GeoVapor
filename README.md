@@ -79,6 +79,10 @@ There is already a self-hosted version of IP2GeoVapor running on a VPS at `iploo
 3. To get geographical information about a specific IP address, navigate to the `/json/<ip-address>` endpoint, where `<ip-address>` is the IP address you want to look up. For example, if you want to look up information about the IP address 8.8.8.8, you can type `iplookup.madrasvalley.com/json/8.8.8.8` in the address bar and hit enter.
 4. The server will respond with a JSON object that contains the geographical information about the specified IP address.
 
+## Documentation
+
+For information on how to deploy IP2GeoVapor to a VPS, see [this Medium article](https://medium.com/@vishwaisodev/easily-deploy-your-vapor-4-api-to-a-vps-with-these-simple-steps-9ceeb4432f84).
+
 ## Author
 
 <a href="https://github.com/VishwaiOSDev" title="VishwaiOSDev">
