@@ -43,7 +43,10 @@ extension URI {
         return params
     }
     
-    private func mergeParameters(_ lhs: [String: String], rhs: [String: String]) -> [String: String] {
+    private func mergeParameters(
+        _ lhs: [String: String],
+        rhs: [String: String]
+    ) -> [String: String] {
         var res = lhs
         
         for (k, v) in rhs {
