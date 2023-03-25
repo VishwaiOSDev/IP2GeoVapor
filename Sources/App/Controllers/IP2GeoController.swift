@@ -27,7 +27,9 @@ final class IP2GeoController: RouteCollection {
         /// The response is then converted to GeoInfo object and returned.
         routes.get("json", ":ipAddress") { req -> GeoInfo in
             // Check if the passed IP address is a valid IPv4 address
-            guard let clientIP = req.parameters.get("ipAddress"), clientIP.isIPv4() else { throw Abort(.badRequest) }
+            guard let clientIP = req.parameters.get("ipAddress"), clientIP.isIPv4() else {
+                throw Abort(.badRequest)
+            }
             let ipApiInfo = try await self.getIpApiResponse(req, for: clientIP)
             let geoInfo = GeoInfo(from: ipApiInfo)
             return geoInfo
@@ -39,24 +41,11 @@ final class IP2GeoController: RouteCollection {
             let clientIP = req.headers.first(name: header) ?? req.remoteAddress!.ipAddress!
             return IPAddress(status: true, ip: clientIP)
         }
-        
-        /// This is a GET route that returns the instruction how to use self-hosted API
-        routes.get { req -> String in
-            let response =
-                """
-                IPLOOKUP \n
-                To see your IP Address: https://iplookup.madrasvalley.com/myip
-                To get location for IP Address: https://iplookup.madrasvalley.com/json/<ip-address-goes-here> \n
-                Example: https://iplookup.madrasvalley.com/json/100.42.23.255 \n
-                Note: If `iplookup.madrasvalley.com` is not working try with `iplookup.loadify.app`
-                """
-            return response
-        }
     }
 }
 
 /// This extension is used to provide the functionality to get the IP-API response for the given IP address.
-fileprivate extension IP2GeoController {
+private extension IP2GeoController {
     
     /// This function is used to get the IP-API response for the given IP address.
     /// - Parameters
@@ -65,7 +54,11 @@ fileprivate extension IP2GeoController {
     ///    - responseType: ResponseType, format of the response (json, xml, csv or newline)
     /// - Returns: IPApiInfo, IP-API response for the given IP address
     /// - Throws: Error when there is an issue in getting the response from the IP-API service
-    func getIpApiResponse(_ req: Request, for ip: String, responseType: ResponseType = .json) async throws -> IPApiInfo {
+    func getIpApiResponse(
+        _ req: Request,
+        for ip: String,
+        responseType: ResponseType = .json
+    ) async throws -> IPApiInfo {
         let ipApiURL = getURI(for: ip, responseType)
         let response = try await req.client.get(ipApiURL)
         return try response.content.decode(IPApiInfo.self)
