@@ -70,15 +70,6 @@ The response format can be changed by specifying the `responseType` parameter in
 
 In case of any error, the package throws Abort error with status `400 Bad Request`
 
-# Self Hosted
-
-There is already a self-hosted version of IP2GeoVapor running on a VPS at `iplookup.madrasvalley.com`.
-
-1. Open a web browser and go to https://iplookup.madrasvalley.com.
-2. To get your own IP address, navigate to the `/myip` endpoint. You can do this by typing `iplookup.madrasvalley.com/myip` in the address bar and hitting enter.
-3. To get geographical information about a specific IP address, navigate to the `/json/<ip-address>` endpoint, where `<ip-address>` is the IP address you want to look up. For example, if you want to look up information about the IP address 8.8.8.8, you can type `iplookup.madrasvalley.com/json/8.8.8.8` in the address bar and hit enter.
-4. The server will respond with a JSON object that contains the geographical information about the specified IP address.
-
 ## Documentation
 
 For information on how to deploy IP2GeoVapor to a VPS, see [this Medium article](https://medium.com/@vishwaisodev/easily-deploy-your-vapor-4-api-to-a-vps-with-these-simple-steps-9ceeb4432f84).
