@@ -10,22 +10,22 @@ import XCTest
 
 final class UtilsTests: XCTestCase {
     
-    func testIsIPv4() {
+    func testisIPAddress() {
         let validIPv4 = "192.168.0.1"
         let invalidIPv4 = "192.168.0"
         
-        XCTAssertTrue(validIPv4.isIPv4())
-        XCTAssertFalse(invalidIPv4.isIPv4())
+        XCTAssertTrue(validIPv4.isIPAddress())
+        XCTAssertFalse(invalidIPv4.isIPAddress())
     }
     
     func testIsIPv4WithVariations() {
-        XCTAssertTrue("172.16.254.1".isIPv4())
-        XCTAssertTrue("10.0.0.255".isIPv4())
-        XCTAssertTrue("192.168.1.1".isIPv4())
-        XCTAssertFalse("256.256.256.256".isIPv4())
-        XCTAssertFalse("google.com".isIPv4())
-        XCTAssertFalse("172.16.254".isIPv4())
-        XCTAssertFalse("172.16.254.1.1".isIPv4())
+        XCTAssertTrue("172.16.254.1".isIPAddress())
+        XCTAssertTrue("10.0.0.255".isIPAddress())
+        XCTAssertTrue("192.168.1.1".isIPAddress())
+        XCTAssertFalse("256.256.256.256".isIPAddress())
+        XCTAssertFalse("google.com".isIPAddress())
+        XCTAssertFalse("172.16.254".isIPAddress())
+        XCTAssertFalse("172.16.254.1.1".isIPAddress())
     }
     
     func testToBool() {

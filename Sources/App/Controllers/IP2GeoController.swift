@@ -1,6 +1,6 @@
 //
 //  IP2GeoController.swift
-//  
+//
 //
 //  Created by Vishweshwaran on 28/01/23.
 //
@@ -27,9 +27,7 @@ final class IP2GeoController: RouteCollection {
         /// The response is then converted to GeoInfo object and returned.
         routes.get("json", ":ipAddress") { req -> GeoInfo in
             // Check if the passed IP address is a valid IPv4 address
-            guard let clientIP = req.parameters.get("ipAddress"), clientIP.isIPv4() else {
-                throw Abort(.badRequest)
-            }
+            guard let clientIP = req.parameters.get("ipAddress"), clientIP.isIPAddress() else { throw Abort(.badRequest) }
             let ipApiInfo = try await self.getIpApiResponse(req, for: clientIP)
             let geoInfo = GeoInfo(from: ipApiInfo)
             return geoInfo
