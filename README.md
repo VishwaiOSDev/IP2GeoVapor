@@ -1,4 +1,4 @@
-![IP2GeoVapor](https://images.madrasvalley.com/ip2geovapor-india.png)
+![IP2GeoVapor](https://vishwaiosdev.github.io/global-images/ip2geovapor-india.png)
 
 # IP2GeoVapor
 
