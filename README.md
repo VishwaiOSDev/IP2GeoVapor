@@ -2,8 +2,6 @@
 
 # IP2GeoVapor
 
-[![Deploy](https://github.com/VishwaiOSDev/IP2GeoVapor/actions/workflows/deploy.yml/badge.svg)](https://github.com/VishwaiOSDev/IP2GeoVapor/actions/workflows/deploy.yml) [![Test](https://github.com/VishwaiOSDev/IP2GeoVapor/actions/workflows/test.yml/badge.svg)](https://github.com/VishwaiOSDev/IP2GeoVapor/actions/workflows/test.yml)
-
 IP2Geo is a Vapor API that allows you to easily fetch geographical information of an IP address. The IP-API service uses HTTP by default, but this package uses HTTPS to ensure a secure connection.
 
 # Endpoints
